@@ -1,0 +1,1 @@
+web: java -Dserver.port=$PORT -jar -Dspring.active.profiles=prod zebra-product-app/target/zebra-product-app-1.0-SNAPSHOT.jar

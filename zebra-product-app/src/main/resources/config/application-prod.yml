@@ -1,0 +1,40 @@
+zebra-product:
+  display-name: zebra-product
+
+headers-cors:
+  # CORS is only enabled by default with the "dev" profile, so BrowserSync can access the API
+  cors:
+    allowed-origins: "*"
+    allowed-methods: GET, PUT, POST, DELETE, OPTIONS
+    allowed-headers: "'Content-Type, Authorization"
+    exposed-headers: "Content-Type, Authorization"
+    allow-credentials: true
+
+
+spring:
+  banner:
+    location: classpath:banner.txt
+  ## Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+
+logging:
+  file: logs/${zebra-product.display-name}.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+    root: INFO
+    org:
+      springframework: INFO
+
+messages:
+  basename: messages
+  defaultCountry: BR
+  defaultLanguage: PT
+  defaultEncoding: UTF-8
+  default:
+    country: BR
+    language: PT
+    encoding: UTF-8
