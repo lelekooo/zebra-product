@@ -2,7 +2,6 @@ package br.com.zebra.product.core.config;
 
 import br.com.zebra.product.model.util.IP;
 import br.com.zebra.product.service.IPService;
-import netscape.security.ForbiddenTargetException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +26,7 @@ public class IPFilter implements Filter {
         String header = httpRequest.getHeader("TCC-IP");
         IP ip = ipService.getOne(header);
         if(ip == null){
-            throw new ForbiddenTargetException("Not Allowed");
+            throw new SecurityException("Not Allowed");
         }
 
         filterChain.doFilter(servletRequest, servletResponse);
