@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -20,13 +22,21 @@ public class ProductServiceImpl implements ProductService {
     ProductRepository productRepository;
 
     @Override
-    public List<Product> getProducts(){
-        return productRepository.findAll();
+    public Map<String, Product> getProducts(){
+        List<Product> responseList = productRepository.findAll();
+        Map<String, Product> resposeMap = new HashMap<String, Product>();
+        responseList.forEach(product ->
+                resposeMap.put(product.getIdProduct().toString(), product));
+        return resposeMap;
     }
 
     @Override
-    public Product getProduct(Long id){
-        return productRepository.findByIdProduct(id);
+    public Map<String, Product> getProduct(Long id){
+        Product product = productRepository.findByIdProduct(id);
+        Map<String, Product> resposeMap = new HashMap<String, Product>();
+        resposeMap.put(product.getIdProduct().toString(), product);
+        return resposeMap;
+
     }
 
 }

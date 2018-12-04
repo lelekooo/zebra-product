@@ -2,22 +2,18 @@ package br.com.zebra.product.rest;
 
 import br.com.zebra.product.model.Product;
 import br.com.zebra.product.model.util.ProductSwaggerStrings;
-import br.com.zebra.product.model.util.SwaggerStrings;
 import br.com.zebra.product.service.ProductService;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
+@RequestMapping("/product")
 public class ProductRest {
 
     @Autowired
@@ -28,10 +24,10 @@ public class ProductRest {
             value = ProductSwaggerStrings.ApiOperationValue.GET_PRODUCT_VALUE,
             notes = ProductSwaggerStrings.ApiOperationValue.GET_PRODUCT_NOTES
     )
-    @RequestMapping(path = "/product",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Product getPayments(
-            @ApiParam(value = SwaggerStrings.ApiParamValue.ID, required = true)
-            @RequestParam(required = false) Long id) {
+    @RequestMapping(path = "{id}",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Product> getProduct(
+            @RequestHeader(value="TCC-IP") String tccIp,
+            @PathVariable("id") Long id) {
         return productService.getProduct(id);
     }
 
@@ -39,8 +35,8 @@ public class ProductRest {
             value = ProductSwaggerStrings.ApiOperationValue.GET_PRODUCTS_VALUE,
             notes = ProductSwaggerStrings.ApiOperationValue.GET_PRODUCTS_NOTES
     )
-    @RequestMapping(path = "/products", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Product> getProducts() {
+    @RequestMapping(method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Product> getProducts(@RequestHeader(value="TCC-IP") String tccIp) {
         return productService.getProducts();
     }
 
