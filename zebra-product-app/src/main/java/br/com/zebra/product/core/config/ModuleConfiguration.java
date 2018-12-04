@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties
-@ComponentScan(basePackages = {"br.com.nn"})
+@ComponentScan(basePackages = {"br.com.zebra"})
 @EnableAutoConfiguration(exclude = {FreeMarkerAutoConfiguration.class})
 public class ModuleConfiguration {
 }
