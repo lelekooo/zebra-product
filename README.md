@@ -1,1 +1,1 @@
-# b2b-backoffice
+# zebra-product
